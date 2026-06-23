@@ -1,0 +1,219 @@
+.merchant-homepage {
+  min-height: 100vh;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 24px 64px;
+  background: #ffffff;
+}
+
+.merchant-homepage__header,
+.merchant-homepage__shop-link,
+.merchant-homepage__actions,
+.merchant-homepage__nudge {
+  display: flex;
+  align-items: center;
+}
+
+.merchant-homepage__header {
+  justify-content: space-between;
+  gap: 18px;
+}
+
+.merchant-homepage__shop-link {
+  gap: 12px;
+  color: #111111;
+  text-decoration: none;
+}
+
+.merchant-homepage__shop-link img {
+  width: 68px;
+  height: 68px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.merchant-homepage__shop-link div {
+  display: grid;
+  gap: 4px;
+}
+
+.merchant-homepage__shop-link span,
+.merchant-homepage__earnings-card p,
+.merchant-homepage__earnings-card span,
+.merchant-homepage__payment span,
+.merchant-homepage__nudge p {
+  margin: 0;
+  color: #6b7280;
+}
+
+.merchant-homepage__view-shop {
+  min-height: 44px;
+  display: grid;
+  place-items: center;
+  padding: 0 16px;
+  border-radius: 9999px;
+  color: #7c3aed;
+  background: #ede9fe;
+  text-decoration: none;
+  font-weight: 850;
+  transition: all 0.15s ease;
+}
+
+.merchant-homepage__earnings-card,
+.merchant-homepage__nudge {
+  position: relative;
+  margin-top: 28px;
+  padding: 26px;
+  border-radius: 24px;
+  background: #fafafa;
+}
+
+.merchant-homepage__earnings-card h1 {
+  margin: 8px 0 6px;
+  color: #111111;
+  font-size: clamp(2.2rem, 4.8vw, 3.9rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.merchant-homepage__eye {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+  width: 52px;
+  height: 52px;
+  border: 0;
+  border-radius: 9999px;
+  background: #f3f4f6;
+  cursor: pointer;
+}
+
+.merchant-homepage__actions {
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.merchant-homepage__actions button,
+.merchant-homepage__nudge button {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 9999px;
+  background: #ede9fe;
+  color: #111111;
+  font-weight: 850;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.merchant-homepage__actions img {
+  width: 28px;
+}
+
+.merchant-homepage__view-shop:hover,
+.merchant-homepage__actions button:hover,
+.merchant-homepage__nudge button:hover,
+.merchant-homepage__payment:hover {
+  transform: scale(1.02);
+}
+
+.merchant-homepage__view-shop:active,
+.merchant-homepage__actions button:active,
+.merchant-homepage__nudge button:active {
+  transform: scale(0.97);
+}
+
+.merchant-homepage__activity {
+  margin-top: 34px;
+}
+
+.merchant-homepage h2 {
+  margin: 0 0 16px;
+  color: #111111;
+  font-size: 1.6rem;
+  letter-spacing: 0;
+}
+
+.merchant-homepage__activity-list {
+  display: grid;
+  gap: 12px;
+}
+
+.merchant-homepage__payment {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 24px;
+  background: #fafafa;
+  transition: all 0.15s ease;
+}
+
+.merchant-homepage__payment img {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.merchant-homepage__payment > div {
+  display: grid;
+  gap: 4px;
+}
+
+.merchant-homepage__payment > div:last-child {
+  text-align: right;
+}
+
+.merchant-homepage__payment > div:last-child strong {
+  color: #10b981;
+}
+
+.merchant-homepage__nudge {
+  justify-content: space-between;
+  gap: 18px;
+  border: 1px solid #e5e7eb;
+}
+
+.merchant-homepage__nudge button {
+  color: #ffffff;
+  background: #7c3aed;
+}
+
+@media (max-width: 560px) {
+  .merchant-homepage {
+    padding: 24px 18px 116px;
+  }
+
+  .merchant-homepage__earnings-card h1 {
+    font-size: clamp(2.35rem, 11vw, 4rem);
+  }
+
+  .merchant-homepage__header,
+  .merchant-homepage__nudge {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .merchant-homepage__payment {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .merchant-homepage__payment > div:last-child {
+    grid-column: 2;
+    text-align: left;
+  }
+}
+
+@media (min-width: 1000px) {
+  .merchant-homepage__earnings-card {
+    min-height: 230px;
+    display: grid;
+    align-content: center;
+  }
+}

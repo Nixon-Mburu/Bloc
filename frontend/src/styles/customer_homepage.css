@@ -1,0 +1,258 @@
+.customer-homepage {
+  min-height: 100vh;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px 24px 64px;
+  background: #ffffff;
+}
+
+.customer-homepage__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.customer-homepage__header > img {
+  width: 82px;
+}
+
+.customer-homepage__icon-button,
+.customer-homepage__eye {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  border-radius: 9999px;
+  background: #f3f4f6;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.customer-homepage__icon-button:hover,
+.customer-homepage__eye:hover,
+.customer-homepage__balance-actions a:hover,
+.customer-homepage__balance-actions button:hover,
+.customer-homepage__profile-card:hover,
+.customer-homepage__transaction:hover {
+  transform: scale(1.02);
+}
+
+.customer-homepage__icon-button:active,
+.customer-homepage__eye:active,
+.customer-homepage__balance-actions a:active,
+.customer-homepage__balance-actions button:active {
+  transform: scale(0.97);
+}
+
+.customer-homepage__icon-button img {
+  width: 27px;
+}
+
+.customer-homepage__search {
+  min-height: 58px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 24px 0;
+  padding: 0 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 9999px;
+  color: #6b7280;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.customer-homepage__search:focus,
+.customer-homepage__search:hover {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+.customer-homepage__search img {
+  width: 25px;
+}
+
+.customer-homepage__balance-card {
+  position: relative;
+  display: grid;
+  gap: 24px;
+  padding: 26px;
+  border-radius: 24px;
+  background: #fafafa;
+}
+
+.customer-homepage__balance-card p,
+.customer-homepage__profile-card span,
+.customer-homepage__transaction span {
+  margin: 0;
+  color: #6b7280;
+}
+
+.customer-homepage__balance-card h1 {
+  margin: 8px 0 0;
+  color: #111111;
+  font-size: clamp(2.2rem, 4.8vw, 3.9rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.customer-homepage__eye {
+  position: absolute;
+  right: 24px;
+  top: 24px;
+}
+
+.customer-homepage__balance-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.customer-homepage__balance-actions a,
+.customer-homepage__balance-actions button {
+  min-height: 54px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 9999px;
+  color: #111111;
+  background: #ede9fe;
+  text-decoration: none;
+  font-weight: 850;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.customer-homepage__balance-actions img {
+  width: 28px;
+}
+
+.customer-homepage__feed,
+.customer-homepage__transactions {
+  margin-top: 34px;
+}
+
+.customer-homepage h2 {
+  margin: 0 0 16px;
+  color: #111111;
+  font-size: 1.6rem;
+  letter-spacing: 0;
+}
+
+.customer-homepage__feed-row {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+  scrollbar-width: none;
+}
+
+.customer-homepage__feed-row::-webkit-scrollbar {
+  display: none;
+}
+
+.customer-homepage__profile-card {
+  flex: 0 0 172px;
+  display: grid;
+  gap: 8px;
+  padding: 14px;
+  border-radius: 24px;
+  background: #fafafa;
+  color: #111111;
+  text-decoration: none;
+  transition: all 0.15s ease;
+}
+
+.customer-homepage__profile-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.customer-homepage__profile-card span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.customer-homepage__profile-card strong {
+  overflow: hidden;
+  color: #111111;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.customer-homepage__transaction-list {
+  display: grid;
+  gap: 12px;
+}
+
+.customer-homepage__transaction {
+  display: grid;
+  grid-template-columns: 58px minmax(0, 1fr) auto;
+  gap: 14px;
+  align-items: center;
+  padding: 14px;
+  border-radius: 24px;
+  background: #fafafa;
+  transition: all 0.15s ease;
+}
+
+.customer-homepage__transaction img {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.customer-homepage__transaction > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.customer-homepage__transaction > div:last-child {
+  text-align: right;
+}
+
+.customer-homepage__transaction strong {
+  color: #111111;
+}
+
+.customer-homepage__amount--received {
+  color: #10b981 !important;
+}
+
+@media (max-width: 560px) {
+  .customer-homepage {
+    padding: 24px 18px 116px;
+  }
+
+  .customer-homepage__balance-card h1 {
+    font-size: clamp(2.35rem, 11vw, 4rem);
+  }
+
+  .customer-homepage__transaction {
+    grid-template-columns: 52px minmax(0, 1fr);
+  }
+
+  .customer-homepage__transaction > div:last-child {
+    grid-column: 2;
+    text-align: left;
+  }
+}
+
+@media (min-width: 1000px) {
+  .customer-homepage__balance-card {
+    min-height: 220px;
+    align-content: center;
+  }
+
+  .customer-homepage__profile-card {
+    flex-basis: 165px;
+  }
+}

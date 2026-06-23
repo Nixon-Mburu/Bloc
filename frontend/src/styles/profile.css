@@ -1,0 +1,260 @@
+.profile {
+  min-height: 100vh;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 24px 64px;
+  background: #ffffff;
+}
+
+.profile__header {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.profile__header > img {
+  width: min(220px, 52vw);
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.profile__header h1 {
+  margin: 18px 0 4px;
+  color: #111111;
+  font-size: clamp(2.1rem, 4.2vw, 3.8rem);
+  line-height: 0.95;
+  letter-spacing: 0;
+}
+
+.profile__header h1 span {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  margin-left: 10px;
+  border-radius: 50%;
+  color: #ffffff;
+  background: #7c3aed;
+  font-size: 1.1rem;
+  vertical-align: middle;
+}
+
+.profile__header p {
+  max-width: 620px;
+  margin: 8px 0 0;
+  color: #6b7280;
+}
+
+.profile__header strong {
+  margin-top: 12px;
+  padding: 8px 14px;
+  border-radius: 9999px;
+  background: #ede9fe;
+  color: #7c3aed;
+}
+
+.profile__merchant,
+.profile__payment {
+  display: grid;
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.profile__photos {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scrollbar-width: none;
+}
+
+.profile__photos::-webkit-scrollbar {
+  display: none;
+}
+
+.profile__photos img {
+  flex: 0 0 230px;
+  width: 230px;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  border-radius: 24px;
+}
+
+.profile__catalogue,
+.profile__details,
+.profile__context {
+  padding: 22px;
+  border-radius: 24px;
+  background: #fafafa;
+}
+
+.profile__catalogue h2,
+.profile__context h2 {
+  margin: 0 0 14px;
+  color: #111111;
+}
+
+.profile__catalogue > div {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.profile__catalogue article {
+  padding: 16px;
+  border-radius: 20px;
+  background: #ffffff;
+}
+
+.profile__catalogue h3 {
+  margin: 0;
+  color: #111111;
+}
+
+.profile__catalogue p,
+.profile__details p,
+.profile__details li {
+  color: #6b7280;
+}
+
+.profile__details ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+}
+
+.profile__amount {
+  display: grid;
+  gap: 10px;
+  color: #111111;
+  font-weight: 850;
+  text-align: center;
+}
+
+.profile__amount div {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  width: min(520px, 100%);
+  min-height: 82px;
+  margin: 0 auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  background: #ffffff;
+  transition: all 0.15s ease;
+}
+
+.profile__amount div:focus-within {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+.profile__amount span {
+  padding-left: 22px;
+  color: #7c3aed;
+  font-size: 1.25rem;
+}
+
+.profile__amount input {
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  color: #111111;
+  font-size: clamp(2rem, 4vw, 2.8rem);
+  background: transparent;
+}
+
+.profile__chips,
+.profile__context div {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.profile__chips button,
+.profile__context button,
+.profile__pay-button {
+  min-height: 48px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 9999px;
+  background: #f3f4f6;
+  color: #111111;
+  font-weight: 850;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.profile__chips button:hover,
+.profile__context button:hover,
+.profile__pay-button:hover {
+  transform: scale(1.02);
+}
+
+.profile__chips button:active,
+.profile__context button:active,
+.profile__pay-button:active {
+  transform: scale(0.97);
+}
+
+.profile__context textarea {
+  width: 100%;
+  padding: 16px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  outline: 0;
+  resize: vertical;
+  transition: all 0.15s ease;
+}
+
+.profile__context textarea:focus {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+.profile__pay-button {
+  width: 100%;
+  min-height: 62px;
+  color: #ffffff;
+  background: #7c3aed;
+}
+
+@media (max-width: 760px) {
+  .profile {
+    padding: 28px 18px 116px;
+  }
+
+  .profile__header h1 {
+    font-size: clamp(2.35rem, 11vw, 4.2rem);
+  }
+
+  .profile__catalogue > div {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 980px) {
+  .profile__merchant {
+    grid-template-columns: minmax(0, 1fr) 360px;
+    align-items: start;
+  }
+
+  .profile__photos,
+  .profile__catalogue {
+    grid-column: 1;
+  }
+
+  .profile__details {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    position: sticky;
+    top: 24px;
+  }
+
+  .profile__payment {
+    max-width: 760px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}

@@ -1,0 +1,335 @@
+.merchant-login {
+  min-height: 100vh;
+  padding: 30px clamp(18px, 5vw, 72px) 60px;
+  background: #ffffff;
+}
+
+.merchant-login__header {
+  max-width: 1180px;
+  display: grid;
+  grid-template-columns: 118px minmax(0, 1fr);
+  gap: clamp(22px, 5vw, 58px);
+  align-items: start;
+  margin: 0 auto 28px;
+}
+
+.merchant-login__header img {
+  width: 118px;
+}
+
+.merchant-login__header h1 {
+  max-width: 780px;
+  margin: 0;
+  color: #111111;
+  font-size: clamp(2.8rem, 5vw, 5.2rem);
+  line-height: 0.94;
+  letter-spacing: 0;
+}
+
+.merchant-login__header span {
+  display: block;
+  color: #6b7280;
+}
+
+.merchant-login__proof {
+  max-width: 1180px;
+  min-height: 250px;
+  position: relative;
+  margin: 0 auto 34px;
+}
+
+.merchant-login__proof-card {
+  position: absolute;
+  width: min(260px, 32vw);
+  padding: 16px;
+  border-radius: 24px;
+  background: #fafafa;
+  box-shadow: 0 22px 48px rgba(17, 17, 17, 0.12);
+  transition: all 0.15s ease;
+}
+
+.merchant-login__proof-card:hover {
+  transform: translateY(-4px) rotate(var(--tilt));
+}
+
+.merchant-login__proof-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.merchant-login__proof-card strong {
+  display: block;
+  margin-top: 12px;
+}
+
+.merchant-login__proof-card p {
+  margin: 4px 0 0;
+  color: #6b7280;
+}
+
+.merchant-login__proof-card--1 {
+  --tilt: -5deg;
+  left: 6%;
+  top: 12px;
+  transform: rotate(-5deg);
+}
+
+.merchant-login__proof-card--2 {
+  --tilt: 4deg;
+  left: 36%;
+  top: 0;
+  z-index: 2;
+  transform: rotate(4deg);
+}
+
+.merchant-login__proof-card--3 {
+  --tilt: 7deg;
+  right: 8%;
+  top: 18px;
+  transform: rotate(7deg);
+}
+
+.merchant-login__form {
+  width: min(1040px, 100%);
+  display: grid;
+  gap: 20px;
+  margin: 0 auto;
+}
+
+.merchant-login__card {
+  display: grid;
+  gap: 16px;
+  padding: 24px;
+  border: 1px solid #e5e7eb;
+  border-radius: 24px;
+  background: #fafafa;
+}
+
+.merchant-login__card h2 {
+  margin: 0;
+  color: #111111;
+  font-size: clamp(1.6rem, 2.8vw, 2.45rem);
+  line-height: 1;
+  letter-spacing: 0;
+}
+
+.merchant-login__kicker,
+.merchant-login__confirmation {
+  margin: 0;
+  color: #6b7280;
+  font-weight: 800;
+}
+
+.merchant-login__confirmation {
+  color: #10b981;
+}
+
+.merchant-login__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.merchant-login label {
+  display: grid;
+  gap: 8px;
+  color: #111111;
+  font-weight: 800;
+}
+
+.merchant-login input,
+.merchant-login textarea,
+.merchant-login__handle div,
+.merchant-login__password {
+  min-height: 54px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #ffffff;
+  transition: all 0.15s ease;
+}
+
+.merchant-login input,
+.merchant-login textarea {
+  width: 100%;
+  padding: 0 16px;
+  outline: 0;
+  color: #111111;
+}
+
+.merchant-login textarea {
+  padding-top: 14px;
+  resize: vertical;
+}
+
+.merchant-login input:focus,
+.merchant-login textarea:focus,
+.merchant-login__handle div:focus-within,
+.merchant-login__password:focus-within {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+.merchant-login__handle div,
+.merchant-login__password {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.merchant-login__handle div > span {
+  padding-left: 16px;
+  color: #7c3aed;
+  font-size: 1.15rem;
+}
+
+.merchant-login__handle input,
+.merchant-login__password input {
+  border: 0;
+  background: transparent;
+}
+
+.merchant-login__password button {
+  margin-right: 8px;
+  padding: 8px 13px;
+  border: 0;
+  border-radius: 9999px;
+  color: #7c3aed;
+  background: #ede9fe;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.merchant-login label > span {
+  color: #ef4444;
+  font-size: 0.82rem;
+}
+
+.merchant-login__status {
+  padding-right: 16px;
+  font-size: 0.78rem;
+}
+
+.merchant-login__status--available {
+  color: #10b981;
+}
+
+.merchant-login__status--taken {
+  color: #ef4444;
+}
+
+.merchant-login__chips,
+.merchant-login__payouts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.merchant-login__chip,
+.merchant-login__payout,
+.merchant-login__hours button,
+.merchant-login__submit {
+  min-height: 48px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 9999px;
+  background: #f3f4f6;
+  color: #111111;
+  font-weight: 850;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.merchant-login__chip:hover,
+.merchant-login__payout:hover,
+.merchant-login__hours button:hover,
+.merchant-login__submit:hover {
+  transform: scale(1.02);
+}
+
+.merchant-login__chip:active,
+.merchant-login__payout:active,
+.merchant-login__hours button:active,
+.merchant-login__submit:active {
+  transform: scale(0.97);
+}
+
+.merchant-login__chip--active,
+.merchant-login__payout--active,
+.merchant-login__submit {
+  color: #ffffff;
+  background: #7c3aed;
+}
+
+.merchant-login__hours {
+  display: grid;
+  gap: 12px;
+}
+
+.merchant-login__hours > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.merchant-login__uploads {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 16px;
+}
+
+.merchant-login__uploads input {
+  padding-top: 15px;
+}
+
+.merchant-login__uploads div {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+
+.merchant-login__uploads img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 18px;
+}
+
+.merchant-login__submit {
+  width: 100%;
+  min-height: 60px;
+  font-size: 1.04rem;
+}
+
+@media (max-width: 860px) {
+  .merchant-login__header h1 {
+    font-size: clamp(2.9rem, 12vw, 4.8rem);
+  }
+
+  .merchant-login__header,
+  .merchant-login__grid,
+  .merchant-login__uploads,
+  .merchant-login__hours > div {
+    grid-template-columns: 1fr;
+  }
+
+  .merchant-login__proof {
+    min-height: auto;
+    display: grid;
+    gap: 16px;
+  }
+
+  .merchant-login__proof-card {
+    position: static;
+    width: 100%;
+    transform: none;
+  }
+}
+
+@media (min-width: 1180px) {
+  .merchant-login__proof-card {
+    width: 240px;
+  }
+}

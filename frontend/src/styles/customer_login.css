@@ -1,0 +1,264 @@
+.customer-login {
+  min-height: 100vh;
+  padding: 28px clamp(18px, 5vw, 70px) 56px;
+  background: #ffffff;
+}
+
+.customer-login__logo {
+  display: block;
+  width: 96px;
+  margin: 0 auto 34px;
+}
+
+.customer-login__hero {
+  max-width: 1180px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.9fr) minmax(420px, 1.1fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+
+.customer-login__hero h1 {
+  margin: 0;
+  color: #111111;
+  font-size: clamp(2.7rem, 4.8vw, 4.9rem);
+  line-height: 0.96;
+  letter-spacing: 0;
+}
+
+.customer-login__hero h1 span {
+  display: block;
+  margin-top: 14px;
+  color: #6b7280;
+}
+
+.customer-login__primary,
+.customer-login__submit {
+  min-height: 58px;
+  padding: 0 30px;
+  border: 0;
+  border-radius: 9999px;
+  color: #ffffff;
+  background: #7c3aed;
+  font-weight: 850;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.customer-login__primary {
+  margin-top: 34px;
+}
+
+.customer-login__primary:hover,
+.customer-login__submit:hover {
+  transform: scale(1.02);
+  box-shadow: 0 16px 34px rgba(124, 58, 237, 0.24);
+}
+
+.customer-login__primary:active,
+.customer-login__submit:active {
+  transform: scale(0.97);
+}
+
+.customer-login__cards {
+  min-height: 500px;
+  position: relative;
+}
+
+.customer-login__profile-card {
+  position: absolute;
+  width: min(280px, 42vw);
+  padding: 18px;
+  border-radius: 24px;
+  background: #fafafa;
+  box-shadow: 0 22px 50px rgba(17, 17, 17, 0.12);
+  transition: all 0.15s ease;
+}
+
+.customer-login__profile-card:hover {
+  transform: translateY(-5px) rotate(var(--tilt));
+}
+
+.customer-login__profile-card img {
+  width: 100%;
+  aspect-ratio: 1;
+  display: block;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.customer-login__profile-card strong {
+  display: block;
+  margin-top: 14px;
+  color: #111111;
+  font-size: 1.2rem;
+}
+
+.customer-login__profile-card p {
+  margin: 5px 0 0;
+  color: #6b7280;
+}
+
+.customer-login__profile-card--1 {
+  --tilt: -7deg;
+  left: 0;
+  top: 82px;
+  transform: rotate(-7deg);
+}
+
+.customer-login__profile-card--2 {
+  --tilt: 3deg;
+  left: 30%;
+  top: 0;
+  z-index: 2;
+  transform: rotate(3deg);
+}
+
+.customer-login__profile-card--3 {
+  --tilt: 8deg;
+  right: 0;
+  top: 134px;
+  transform: rotate(8deg);
+}
+
+.customer-login__form {
+  width: min(900px, 100%);
+  margin: 36px auto 0;
+  padding: 24px;
+  border-radius: 24px;
+  background: #fafafa;
+}
+
+.customer-login__form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.customer-login__form label {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 16px;
+  color: #111111;
+  font-weight: 800;
+}
+
+.customer-login__form input,
+.customer-login__handle div,
+.customer-login__password {
+  min-height: 54px;
+  border: 1px solid #e5e7eb;
+  border-radius: 16px;
+  background: #ffffff;
+  transition: all 0.15s ease;
+}
+
+.customer-login__form input {
+  width: 100%;
+  padding: 0 16px;
+  outline: 0;
+  color: #111111;
+}
+
+.customer-login__form input:focus,
+.customer-login__handle div:focus-within,
+.customer-login__password:focus-within {
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
+}
+
+.customer-login__handle div,
+.customer-login__password {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+}
+
+.customer-login__handle div > span {
+  padding-left: 16px;
+  color: #7c3aed;
+  font-size: 1.15rem;
+}
+
+.customer-login__handle input,
+.customer-login__password input {
+  border: 0;
+  background: transparent;
+}
+
+.customer-login__status {
+  padding-right: 16px;
+  font-size: 0.78rem;
+}
+
+.customer-login__status--available {
+  color: #10b981;
+}
+
+.customer-login__status--taken {
+  color: #ef4444;
+}
+
+.customer-login__password button {
+  margin-right: 8px;
+  padding: 8px 13px;
+  border: 0;
+  border-radius: 9999px;
+  background: #ede9fe;
+  color: #7c3aed;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.customer-login__form label > span {
+  color: #ef4444;
+  font-size: 0.82rem;
+}
+
+.customer-login__form small {
+  color: #6b7280;
+}
+
+.customer-login__submit {
+  width: 100%;
+}
+
+@media (max-width: 900px) {
+  .customer-login__hero,
+  .customer-login__form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .customer-login__cards {
+    min-height: 460px;
+  }
+}
+
+@media (min-width: 1180px) {
+  .customer-login__cards {
+    min-height: 460px;
+  }
+
+  .customer-login__profile-card {
+    width: 250px;
+  }
+}
+
+@media (max-width: 620px) {
+  .customer-login__hero h1 {
+    font-size: clamp(2.85rem, 12vw, 4.5rem);
+  }
+
+  .customer-login__cards {
+    min-height: auto;
+    display: grid;
+    gap: 16px;
+  }
+
+  .customer-login__profile-card {
+    position: static;
+    width: 100%;
+    transform: none;
+  }
+}
