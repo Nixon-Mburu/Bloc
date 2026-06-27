@@ -4,6 +4,42 @@
   background: #ffffff;
 }
 
+.merchant-login__logo {
+  display: block;
+  width: 96px;
+  margin: 0 auto 28px;
+}
+
+.merchant-login__hero {
+  max-width: 780px;
+  margin: 0 auto 34px;
+  display: grid;
+  gap: 18px;
+  text-align: center;
+}
+
+.merchant-login__hero span {
+  color: #6b7280;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.merchant-login__hero h1 {
+  margin: 0;
+  color: #111111;
+  font-size: clamp(2.8rem, 5vw, 4.8rem);
+  line-height: 0.98;
+}
+
+.merchant-login__hero p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 1rem;
+  line-height: 1.8;
+}
+
 .merchant-login__header {
   max-width: 1180px;
   display: grid;
@@ -31,66 +67,6 @@
   color: #6b7280;
 }
 
-.merchant-login__proof {
-  max-width: 1180px;
-  min-height: 250px;
-  position: relative;
-  margin: 0 auto 34px;
-}
-
-.merchant-login__proof-card {
-  position: absolute;
-  width: min(260px, 32vw);
-  padding: 16px;
-  border-radius: 24px;
-  background: #fafafa;
-  box-shadow: 0 22px 48px rgba(17, 17, 17, 0.12);
-  transition: all 0.15s ease;
-}
-
-.merchant-login__proof-card:hover {
-  transform: translateY(-4px) rotate(var(--tilt));
-}
-
-.merchant-login__proof-card img {
-  width: 100%;
-  aspect-ratio: 1;
-  display: block;
-  object-fit: cover;
-  border-radius: 50%;
-}
-
-.merchant-login__proof-card strong {
-  display: block;
-  margin-top: 12px;
-}
-
-.merchant-login__proof-card p {
-  margin: 4px 0 0;
-  color: #6b7280;
-}
-
-.merchant-login__proof-card--1 {
-  --tilt: -5deg;
-  left: 6%;
-  top: 12px;
-  transform: rotate(-5deg);
-}
-
-.merchant-login__proof-card--2 {
-  --tilt: 4deg;
-  left: 36%;
-  top: 0;
-  z-index: 2;
-  transform: rotate(4deg);
-}
-
-.merchant-login__proof-card--3 {
-  --tilt: 7deg;
-  right: 8%;
-  top: 18px;
-  transform: rotate(7deg);
-}
 
 .merchant-login__form {
   width: min(1040px, 100%);
@@ -315,18 +291,7 @@
     grid-template-columns: 1fr;
   }
 
-  .merchant-login__proof {
-    min-height: auto;
-    display: grid;
-    gap: 16px;
   }
-
-  .merchant-login__proof-card {
-    position: static;
-    width: 100%;
-    transform: none;
-  }
-}
 
 @media (min-width: 1180px) {
   .merchant-login__proof-card {
