@@ -10,12 +10,11 @@ function SignupPage() {
       <header className="signup__header">
         <img className="signup__logo" src={assets.logo} alt="Bloc" />
         <nav className="signup__nav">
-          <a href="#why">Benefits</a>
-          <a href="#process">Process</a>
-          <a href="#compare">Compare</a>
-          <a href="#faq">FAQs</a>
+          <Link to="/">Home</Link>
+          <Link to="/customer-home">Pay</Link>
+          <Link to="/customer-login">Login</Link>
         </nav>
-        <Link className="signup__top-cta" to="/customer-login">View Plans</Link>
+        <Link className="signup__top-cta" to="/merchant-login">Merchant</Link>
       </header>
 
       <section className="signup__hero" aria-labelledby="signup-title">

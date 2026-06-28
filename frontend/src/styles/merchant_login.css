@@ -67,6 +67,73 @@
   color: #6b7280;
 }
 
+.merchant-login__proof {
+  width: min(1040px, 100%);
+  margin: 0 auto 28px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: stretch;
+}
+
+.merchant-login__proof-card {
+  min-height: 230px;
+  display: grid;
+  grid-template-rows: 118px auto auto;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 18px 38px rgba(17, 17, 17, 0.08);
+  overflow: hidden;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.merchant-login__proof-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 24px 52px rgba(17, 17, 17, 0.12);
+}
+
+.merchant-login__proof-card--1 {
+  transform: translateY(18px) rotate(-1.5deg);
+}
+
+.merchant-login__proof-card--2 {
+  border-color: rgba(124, 58, 237, 0.22);
+  background: #f5f3ff;
+  transform: translateY(-6px);
+}
+
+.merchant-login__proof-card--3 {
+  transform: translateY(14px) rotate(1.5deg);
+}
+
+.merchant-login__proof-card--1:hover,
+.merchant-login__proof-card--2:hover,
+.merchant-login__proof-card--3:hover {
+  transform: translateY(-4px) rotate(0deg);
+}
+
+.merchant-login__proof-card img {
+  width: 100%;
+  height: 118px;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+.merchant-login__proof-card strong {
+  color: #111111;
+  font-size: 1rem;
+  line-height: 1.2;
+}
+
+.merchant-login__proof-card p {
+  margin: 0;
+  color: #6b7280;
+  font-size: 0.92rem;
+  line-height: 1.45;
+}
 
 .merchant-login__form {
   width: min(1040px, 100%);
@@ -285,16 +352,25 @@
   }
 
   .merchant-login__header,
+  .merchant-login__proof,
   .merchant-login__grid,
   .merchant-login__uploads,
   .merchant-login__hours > div {
     grid-template-columns: 1fr;
   }
 
+  .merchant-login__proof-card,
+  .merchant-login__proof-card--1,
+  .merchant-login__proof-card--2,
+  .merchant-login__proof-card--3 {
+    min-height: auto;
+    transform: none;
+  }
+
   }
 
 @media (min-width: 1180px) {
   .merchant-login__proof-card {
-    width: 240px;
+    min-height: 250px;
   }
 }

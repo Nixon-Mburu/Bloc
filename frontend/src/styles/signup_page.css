@@ -1,7 +1,9 @@
 .signup {
   min-height: 100vh;
   padding: 24px clamp(18px, 5vw, 70px) 48px;
-  background: #ffffff;
+  background:
+    radial-gradient(circle at 82% 12%, rgba(124, 58, 237, 0.09), transparent 28%),
+    #ffffff;
   color: #111111;
 }
 
@@ -35,7 +37,7 @@
 
 .signup__nav a:hover,
 .signup__top-cta:hover {
-  color: #111111;
+  color: #7c3aed;
 }
 
 .signup__top-cta {
@@ -54,7 +56,7 @@
 
 .signup__top-cta:hover {
   transform: translateY(-1px);
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+  box-shadow: 0 12px 28px rgba(124, 58, 237, 0.18);
 }
 
 .signup__hero {
@@ -78,8 +80,8 @@
   justify-content: center;
   padding: 9px 16px;
   border-radius: 9999px;
-  background: #111111;
-  color: #ffffff;
+  background: #ede9fe;
+  color: #6d28d9;
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.08em;
@@ -97,7 +99,7 @@
 .signup__hero h1 span {
   display: block;
   margin-top: 12px;
-  color: #111111;
+  color: #6d28d9;
 }
 
 .signup__hero-text {
@@ -131,7 +133,7 @@
 .signup__button--primary {
   background: #111111;
   color: #ffffff;
-  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 16px 34px rgba(124, 58, 237, 0.18);
 }
 
 .signup__button--primary:hover {
@@ -139,8 +141,8 @@
 }
 
 .signup__button--secondary {
-  background: #f3f4f6;
-  color: #111111;
+  background: #f5f3ff;
+  color: #5b21b6;
 }
 
 .signup__button--secondary:hover {
@@ -149,9 +151,10 @@
 
 .signup__hero-cards {
   display: grid;
-  gap: 20px;
+  gap: 14px;
   position: relative;
   align-items: center;
+  padding: 18px 0;
 }
 
 .signup__profile-card {
@@ -160,16 +163,35 @@
   gap: 16px;
   align-items: center;
   padding: 20px;
-  border-radius: 24px;
+  border-radius: 22px;
   background: #fafafa;
-  border: 1px solid #f0f0f0;
+  border: 1px solid rgba(124, 58, 237, 0.12);
   box-shadow: 0 18px 40px rgba(17, 17, 17, 0.08);
   transition: transform 0.15s ease, box-shadow 0.15s ease;
+  transform-origin: center;
 }
 
 .signup__profile-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-4px) rotate(0deg);
   box-shadow: 0 22px 52px rgba(17, 17, 17, 0.12);
+}
+
+.signup__profile-card--1 {
+  transform: rotate(-3deg) translateX(12px);
+}
+
+.signup__profile-card--2 {
+  transform: rotate(2deg) translateX(-16px);
+  background: #ffffff;
+}
+
+.signup__profile-card--3 {
+  transform: rotate(-1.5deg) translateX(28px);
+  background: #f5f3ff;
+}
+
+.signup__profile-card--4 {
+  transform: rotate(3deg) translateX(-4px);
 }
 
 .signup__profile-card img {
@@ -283,9 +305,9 @@
 
 .signup__feature-card {
   padding: 28px;
-  border-radius: 24px;
+  border-radius: 22px;
   background: #fafafa;
-  border: 1px solid #f0f0f0;
+  border: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .signup__feature-card h3 {
@@ -317,9 +339,9 @@
 
 .signup__process-grid > div {
   padding: 28px;
-  border-radius: 24px;
+  border-radius: 22px;
   background: #fafafa;
-  border: 1px solid #f0f0f0;
+  border: 1px solid rgba(124, 58, 237, 0.1);
 }
 
 .signup__process-grid strong {
@@ -329,7 +351,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 9999px;
-  background: #111111;
+  background: #7c3aed;
   color: #ffffff;
   margin-bottom: 16px;
 }
@@ -347,6 +369,10 @@
 @media (max-width: 940px) {
   .signup__hero {
     grid-template-columns: 1fr;
+  }
+
+  .signup__hero-cards {
+    max-width: 680px;
   }
 
   .signup__overview {
@@ -370,7 +396,7 @@
 
   .signup__nav {
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 14px;
   }
 
@@ -393,6 +419,17 @@
     min-height: 54px;
   }
 
+  .signup__profile-card {
+    grid-template-columns: 76px 1fr;
+    padding: 16px;
+  }
+
+  .signup__profile-card img {
+    width: 76px;
+    height: 76px;
+    border-radius: 18px;
+  }
+
   .signup__hero-text {
     font-size: 1rem;
   }
@@ -402,4 +439,3 @@
     gap: 12px;
   }
 }
-
