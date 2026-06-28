@@ -14,5 +14,5 @@ class Config:
         "postgresql+psycopg://bloc_user:bloc_password@localhost:5432/bloc_db",
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:3000")
+    API_BASE_URL = os.getenv("API_BASE_URL", "http://localhost:5173/")
     FRONTEND_URL = os.getenv("FRONTEND_URL", "http://localhost:5173")

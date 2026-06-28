@@ -11,6 +11,7 @@ from app.routes.merchant_routes import merchant_bp
 from app.routes.payment_routes import payment_bp
 from app.routes.search_routes import search_bp
 from app.routes.settings_routes import settings_bp
+from app.routes.system_routes import system_bp
 
 
 def create_app(config_class=Config):
@@ -21,6 +22,7 @@ def create_app(config_class=Config):
     db.init_app(app)
     import_models()
 
+    app.register_blueprint(system_bp)
     app.register_blueprint(health_bp)
     app.register_blueprint(auth_bp)
     app.register_blueprint(customer_bp)

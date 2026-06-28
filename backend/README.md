@@ -13,11 +13,12 @@ flask --app app.py init-db
 python3 app.py
 ```
 
-The API runs at `http://localhost:3000`.
+The local base URL is `http://localhost:5173/`.
 Local secrets live in `backend/.env`; use `backend/.env.example` as the template.
 
 ## Main Routes
 
+- `GET /`
 - `GET /api/health`
 - `POST /api/auth/customers/signup`
 - `POST /api/auth/customers/login`
