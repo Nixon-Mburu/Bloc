@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { signupCustomer } from '../api/signupCustomer'
 import { assets, setBlocSession, takenHandles } from '../data/blocData'
 import '../styles/customer_login.css'
 
@@ -22,6 +23,7 @@ function CustomerLogin() {
     confirmPassword: '',
   })
   const [errors, setErrors] = useState({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleStatus = useMemo(() => {
     const cleanHandle = values.handle.trim().replace(/^@/, '').toLowerCase()
@@ -35,7 +37,7 @@ function CustomerLogin() {
     setErrors((current) => ({ ...current, [name]: '' }))
   }
 
-  function submitForm(event) {
+  async function submitForm(event) {
     event.preventDefault()
     const nextErrors = {}
     if (!values.firstName.trim()) nextErrors.firstName = 'First name is required.'
@@ -48,8 +50,16 @@ function CustomerLogin() {
 
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length === 0) {
-      setBlocSession('customer')
-      navigate('/customer-home')
+      setIsSubmitting(true)
+      try {
+        await signupCustomer(values)
+        setBlocSession('customer')
+        navigate('/customer-home')
+      } catch (error) {
+        setErrors({ form: error.message })
+      } finally {
+        setIsSubmitting(false)
+      }
     }
   }
 
@@ -137,7 +147,10 @@ function CustomerLogin() {
           </label>
         </div>
 
-        <button className="customer-login__submit" type="submit">Sign Up</button>
+        {errors.form ? <p className="customer-login__form-error">{errors.form}</p> : null}
+        <button className="customer-login__submit" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Signing Up...' : 'Sign Up'}
+        </button>
       </form>
     </main>
   )

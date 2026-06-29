@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { signupMerchant } from '../api/signupMerchant'
 import { assets, profiles, setBlocSession, takenHandles } from '../data/blocData'
 import '../styles/merchant_login.css'
 
@@ -30,6 +31,7 @@ function MerchantLogin() {
     mpesa: '',
   })
   const [errors, setErrors] = useState({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const handleStatus = useMemo(() => {
     const source = values.handle || values.businessHandle
@@ -49,7 +51,7 @@ function MerchantLogin() {
     setErrors((current) => ({ ...current, [name]: '' }))
   }
 
-  function submitForm(event) {
+  async function submitForm(event) {
     event.preventDefault()
     const nextErrors = {}
     if (!values.firstName.trim()) nextErrors.firstName = 'First name is required.'
@@ -68,8 +70,16 @@ function MerchantLogin() {
 
     setErrors(nextErrors)
     if (Object.keys(nextErrors).length === 0) {
-      setBlocSession('merchant')
-      navigate('/merchant-home')
+      setIsSubmitting(true)
+      try {
+        await signupMerchant(values)
+        setBlocSession('merchant')
+        navigate('/merchant-home')
+      } catch (error) {
+        setErrors({ form: error.message })
+      } finally {
+        setIsSubmitting(false)
+      }
     }
   }
 
@@ -252,7 +262,10 @@ function MerchantLogin() {
           <p className="merchant-login__confirmation">Payments will route to: {routingName.toUpperCase()}</p>
         </section>
 
-        <button className="merchant-login__submit" type="submit">Sign Up</button>
+        {errors.form ? <p className="merchant-login__form-error">{errors.form}</p> : null}
+        <button className="merchant-login__submit" type="submit" disabled={isSubmitting}>
+          {isSubmitting ? 'Signing Up...' : 'Sign Up'}
+        </button>
       </form>
     </main>
   )
