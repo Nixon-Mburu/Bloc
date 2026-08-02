@@ -72,8 +72,8 @@ function MerchantLogin() {
     if (Object.keys(nextErrors).length === 0) {
       setIsSubmitting(true)
       try {
-        await signupMerchant(values)
-        setBlocSession('merchant')
+        const payload = await signupMerchant(values)
+        setBlocSession('merchant', payload.merchant)
         navigate('/merchant-home')
       } catch (error) {
         setErrors({ form: error.message })

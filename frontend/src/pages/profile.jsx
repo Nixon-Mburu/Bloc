@@ -1,18 +1,111 @@
+import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
-import { useState } from 'react'
+import { createPayment } from '../api/createPayment'
+import { getMerchant } from '../api/getMerchant'
 import BottomNav from '../components/BottomNav/BottomNav'
-import { getBlocAccountKind, getProfileByHandle } from '../data/blocData'
+import { assets, getBlocAccount, getBlocAccountKind, getProfileByHandle } from '../data/blocData'
 import '../styles/profile.css'
 
 const amounts = ['50', '100', '500', '1,000', '2,500']
+const paymentSteps = [
+  'Preparing payment request...',
+  'Connecting to M-Pesa via STK push...',
+  'STK push sent. Waiting for confirmation...',
+  'Demo payment complete.',
+]
+
+function readSelectedProfile() {
+  try {
+    return JSON.parse(window.localStorage.getItem('bloc-selected-profile')) || null
+  } catch {
+    return null
+  }
+}
+
+function normalizeProfile(profile, fallback) {
+  const isMerchant = profile.type?.toLowerCase() === 'merchant'
+
+  return {
+    ...fallback,
+    ...profile,
+    type: isMerchant ? 'Merchant' : 'Customer',
+    name: profile.name || profile.business_name || fallback.name,
+    bio: profile.bio || profile.profile_bio || fallback.bio || 'Bloc profile',
+    image: profile.image || profile.profile_picture_url || fallback.image || assets.storeIcon,
+    photos: profile.photos || fallback.photos || [profile.profile_picture_url || fallback.image || assets.storeIcon],
+    menu: profile.menu || fallback.menu || [
+      { item: 'Demo order', description: 'Payment captured for presentation flow', price: 'KES 500' },
+      { item: 'Custom amount', description: 'Enter any amount below and add context', price: 'Your choice' },
+    ],
+    hours: profile.hours || fallback.hours || ['Open today', 'Payments accepted through Bloc demo'],
+    location: profile.location || fallback.location || 'Nairobi, Kenya',
+    verified: profile.verified ?? true,
+  }
+}
 
 function Profile() {
   const { handle } = useParams()
   const [amount, setAmount] = useState('')
-  const [sent, setSent] = useState(false)
-  const profile = getProfileByHandle(handle)
+  const [context, setContext] = useState('')
+  const [paymentStatus, setPaymentStatus] = useState('')
+  const [isPaying, setIsPaying] = useState(false)
+  const [liveProfile, setLiveProfile] = useState(null)
+  const fallbackProfile = getProfileByHandle(handle)
+  const selectedProfile = readSelectedProfile()
+  const account = getBlocAccount()
   const accountKind = getBlocAccountKind()
+  const profile = useMemo(() => {
+    const matchingSelected = selectedProfile?.handle?.replace(/^@/, '') === handle
+    return normalizeProfile(liveProfile || (matchingSelected ? selectedProfile : fallbackProfile), fallbackProfile)
+  }, [fallbackProfile, handle, liveProfile, selectedProfile])
   const isMerchant = profile.type === 'Merchant'
+
+  useEffect(() => {
+    let isMounted = true
+
+    async function loadMerchant() {
+      try {
+        const payload = await getMerchant(handle)
+        if (isMounted) setLiveProfile(payload.merchant)
+      } catch {
+        if (isMounted) setLiveProfile(null)
+      }
+    }
+
+    loadMerchant()
+    return () => {
+      isMounted = false
+    }
+  }, [handle])
+
+  async function runPaymentDemo() {
+    const cleanAmount = Number(amount.replace(/,/g, ''))
+    if (!cleanAmount || cleanAmount <= 0) {
+      setPaymentStatus('Enter an amount to continue.')
+      return
+    }
+
+    setIsPaying(true)
+    for (const step of paymentSteps.slice(0, -1)) {
+      setPaymentStatus(step)
+      await new Promise((resolve) => setTimeout(resolve, 700))
+    }
+
+    try {
+      await createPayment({
+        payer_customer_id: account?.id,
+        amount_to_pay: cleanAmount,
+        text_message: context,
+        merchant_handle: isMerchant ? profile.handle : undefined,
+        customer_handle: !isMerchant ? profile.handle : undefined,
+      })
+    } catch {
+      // The presentation still completes when the selected static profile is not in the local DB yet.
+    }
+
+    setPaymentStatus(paymentSteps.at(-1))
+    setIsPaying(false)
+  }
 
   return (
     <main className="profile">
@@ -70,16 +163,27 @@ function Profile() {
         </div>
         <div className="profile__context">
           <h2>Add a little context</h2>
-          <textarea placeholder="Say something... 'Asante sana', 'Dinner was perfect', 'Goodnight'" rows="4" />
+          <textarea
+            placeholder="Say something... 'Asante sana', 'Dinner was perfect', 'Goodnight'"
+            rows="4"
+            value={context}
+            onChange={(event) => setContext(event.target.value)}
+          />
           <div>
-            <button type="button">😊</button>
-            <button type="button">🙏</button>
-            <button type="button">🎉</button>
-            <button type="button">Skip</button>
+            <button type="button" onClick={() => setContext((current) => `${current} 😊`.trim())}>😊</button>
+            <button type="button" onClick={() => setContext((current) => `${current} 🙏`.trim())}>🙏</button>
+            <button type="button" onClick={() => setContext((current) => `${current} 🎉`.trim())}>🎉</button>
+            <button type="button" onClick={() => setContext('')}>Skip</button>
           </div>
         </div>
-        <button className="profile__pay-button" type="button" onClick={() => setSent(true)}>
-          {sent ? `Ready to pay ${profile.handle}` : `Pay ${profile.handle}`}
+        <section className="profile__process" aria-live="polite">
+          <span>1. Confirm amount</span>
+          <span>2. STK push</span>
+          <span>3. Receipt</span>
+          {paymentStatus ? <strong>{paymentStatus}</strong> : null}
+        </section>
+        <button className="profile__pay-button" type="button" onClick={runPaymentDemo} disabled={isPaying}>
+          {isPaying ? 'Processing...' : `Pay ${profile.handle}`}
         </button>
       </section>
 

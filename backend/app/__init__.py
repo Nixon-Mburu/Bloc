@@ -1,5 +1,8 @@
+from pathlib import Path
+
 from flask import Flask
 from flask_cors import CORS
+from sqlalchemy.engine import make_url
 
 from app.config import Config
 from app.db import db
@@ -21,6 +24,13 @@ def create_app(config_class=Config):
     CORS(app, resources={r"/api/*": {"origins": app.config["FRONTEND_URL"]}})
     db.init_app(app)
     import_models()
+
+    if app.config["AUTO_CREATE_DB"]:
+        database_url = make_url(app.config["SQLALCHEMY_DATABASE_URI"])
+        if database_url.drivername.startswith("sqlite") and database_url.database:
+            Path(app.instance_path).mkdir(parents=True, exist_ok=True)
+        with app.app_context():
+            db.create_all()
 
     app.register_blueprint(system_bp)
     app.register_blueprint(health_bp)

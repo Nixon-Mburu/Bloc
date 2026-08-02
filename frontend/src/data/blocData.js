@@ -173,11 +173,22 @@ export function isSessionValid() {
   return window.localStorage.getItem('bloc-session') === 'active'
 }
 
-export function setBlocSession(kind) {
+export function setBlocSession(kind, account = null) {
   window.localStorage.setItem('bloc-session', 'active')
   window.localStorage.setItem('bloc-account-kind', kind)
+  if (account) {
+    window.localStorage.setItem('bloc-account', JSON.stringify(account))
+  }
 }
 
 export function getBlocAccountKind() {
   return window.localStorage.getItem('bloc-account-kind') || 'customer'
+}
+
+export function getBlocAccount() {
+  try {
+    return JSON.parse(window.localStorage.getItem('bloc-account')) || null
+  } catch {
+    return null
+  }
 }

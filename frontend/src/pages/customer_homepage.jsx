@@ -1,13 +1,82 @@
-import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useMemo, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { searchPeople } from '../api/searchPeople'
 import BottomNav from '../components/BottomNav/BottomNav'
-import { assets, customerTransactions, profiles } from '../data/blocData'
+import { assets, customerTransactions, getBlocAccount, profiles } from '../data/blocData'
 import '../styles/customer_homepage.css'
 
 const feedProfiles = profiles.slice(0, 6)
+const searchableProfiles = profiles.map((profile) => ({
+  ...profile,
+  type: profile.type.toLowerCase(),
+  profile_bio: profile.bio,
+  profile_picture_url: profile.image,
+}))
 
 function CustomerHomepage() {
+  const navigate = useNavigate()
   const [showBalance, setShowBalance] = useState(true)
+  const [query, setQuery] = useState('')
+  const [liveSuggestions, setLiveSuggestions] = useState([])
+  const [isSearching, setIsSearching] = useState(false)
+  const [searchError, setSearchError] = useState('')
+  const [demoStatus, setDemoStatus] = useState('')
+  const account = getBlocAccount()
+
+  const suggestions = useMemo(() => {
+    const cleanQuery = query.trim().toLowerCase().replace(/^@/, '')
+    if (!cleanQuery) return searchableProfiles.filter((profile) => profile.type === 'merchant').slice(0, 4)
+
+    const staticMatches = searchableProfiles.filter((profile) => {
+      const haystack = `${profile.name} ${profile.handle} ${profile.bio} ${profile.type}`.toLowerCase()
+      return haystack.includes(cleanQuery)
+    })
+
+    const seen = new Set()
+    return [...liveSuggestions, ...staticMatches].filter((profile) => {
+      const key = profile.handle
+      if (seen.has(key)) return false
+      seen.add(key)
+      return true
+    }).slice(0, 6)
+  }, [liveSuggestions, query])
+
+  async function updateSearch(event) {
+    const nextQuery = event.target.value
+    setQuery(nextQuery)
+    setSearchError('')
+
+    if (!nextQuery.trim()) {
+      setLiveSuggestions([])
+      return
+    }
+
+    setIsSearching(true)
+    try {
+      const payload = await searchPeople(nextQuery, account?.id)
+      setLiveSuggestions(payload.suggestions || [])
+    } catch (error) {
+      setSearchError(error.message)
+      setLiveSuggestions([])
+    } finally {
+      setIsSearching(false)
+    }
+  }
+
+  function openProfile(profile) {
+    window.localStorage.setItem('bloc-selected-profile', JSON.stringify(profile))
+    navigate(`/profile/${profile.handle.replace(/^@/, '')}`)
+  }
+
+  function startTopUp() {
+    setShowBalance(true)
+    setDemoStatus('Connecting to M-Pesa via STK push. Check your phone to complete the demo top up.')
+  }
+
+  function startSendMoney() {
+    setDemoStatus('Choose a recipient below. Bloc will open a demo payment flow with an M-Pesa STK push screen.')
+    document.querySelector('.customer-homepage__search input')?.focus()
+  }
 
   return (
     <main className="customer-homepage">
@@ -18,10 +87,28 @@ function CustomerHomepage() {
         </Link>
       </header>
 
-      <Link className="customer-homepage__search" to="/profile/greenmarket">
+      <section className="customer-homepage__search" aria-label="Search Bloc profiles">
         <img src={assets.searchIcon} alt="" />
-        <span>find a friend, bar, shop...</span>
-      </Link>
+        <input
+          value={query}
+          onChange={updateSearch}
+          placeholder="find a friend, bar, shop..."
+          aria-label="Search for a customer or merchant"
+        />
+        <div className="customer-homepage__suggestions">
+          {suggestions.map((profile) => (
+            <button type="button" key={profile.handle} onClick={() => openProfile(profile)}>
+              <img src={profile.profile_picture_url || assets.storeIcon} alt="" />
+              <span>
+                <strong>{profile.name || profile.business_name}</strong>
+                <small>{profile.handle} • {profile.type}</small>
+              </span>
+            </button>
+          ))}
+          {isSearching ? <p>Searching Bloc...</p> : null}
+          {searchError ? <p>{searchError}</p> : null}
+        </div>
+      </section>
 
       <section className="customer-homepage__balance-card">
         <div>
@@ -37,15 +124,16 @@ function CustomerHomepage() {
           ◌
         </button>
         <div className="customer-homepage__balance-actions">
-          <Link to="/profile/jessmusic">
+          <button type="button" onClick={startSendMoney}>
             <img src={assets.sendMoneyIcon} alt="" />
             Send Money
-          </Link>
-          <button type="button" onClick={() => setShowBalance(true)}>
+          </button>
+          <button type="button" onClick={startTopUp}>
             <img src={assets.topUpIcon} alt="" />
             Top Up
           </button>
         </div>
+        {demoStatus ? <p className="customer-homepage__demo-status">{demoStatus}</p> : null}
       </section>
 
       <section className="customer-homepage__feed">

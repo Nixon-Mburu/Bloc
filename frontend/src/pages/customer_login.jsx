@@ -52,8 +52,8 @@ function CustomerLogin() {
     if (Object.keys(nextErrors).length === 0) {
       setIsSubmitting(true)
       try {
-        await signupCustomer(values)
-        setBlocSession('customer')
+        const payload = await signupCustomer(values)
+        setBlocSession('customer', payload.customer)
         navigate('/customer-home')
       } catch (error) {
         setErrors({ form: error.message })

@@ -50,6 +50,7 @@
 }
 
 .customer-homepage__search {
+  position: relative;
   min-height: 58px;
   display: flex;
   align-items: center;
@@ -63,7 +64,7 @@
   transition: all 0.15s ease;
 }
 
-.customer-homepage__search:focus,
+.customer-homepage__search:focus-within,
 .customer-homepage__search:hover {
   border-color: #7c3aed;
   box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.1);
@@ -71,6 +72,80 @@
 
 .customer-homepage__search img {
   width: 25px;
+}
+
+.customer-homepage__search input {
+  width: 100%;
+  min-width: 0;
+  border: 0;
+  outline: 0;
+  color: #111111;
+  background: transparent;
+  font: inherit;
+}
+
+.customer-homepage__suggestions {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  display: none;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid #e5e7eb;
+  border-radius: 22px;
+  background: #ffffff;
+  box-shadow: 0 22px 55px rgba(17, 17, 17, 0.12);
+}
+
+.customer-homepage__search:focus-within .customer-homepage__suggestions {
+  display: grid;
+}
+
+.customer-homepage__suggestions button {
+  display: grid;
+  grid-template-columns: 44px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  width: 100%;
+  padding: 8px;
+  border: 0;
+  border-radius: 16px;
+  color: #111111;
+  background: transparent;
+  text-align: left;
+  cursor: pointer;
+}
+
+.customer-homepage__suggestions button:hover {
+  background: #f3f4f6;
+}
+
+.customer-homepage__suggestions button img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.customer-homepage__suggestions span {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+
+.customer-homepage__suggestions strong,
+.customer-homepage__suggestions small {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.customer-homepage__suggestions small,
+.customer-homepage__suggestions p {
+  margin: 0;
+  color: #6b7280;
 }
 
 .customer-homepage__balance-card {
@@ -129,6 +204,15 @@
 
 .customer-homepage__balance-actions img {
   width: 28px;
+}
+
+.customer-homepage__demo-status {
+  margin: -6px 0 0;
+  padding: 14px 16px;
+  border-radius: 16px;
+  color: #065f46 !important;
+  background: #d1fae5;
+  font-weight: 750;
 }
 
 .customer-homepage__feed,

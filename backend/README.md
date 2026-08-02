@@ -1,6 +1,7 @@
 # Bloc Backend
 
-Flask API for Bloc, backed by PostgreSQL.
+Flask API for Bloc. Local development uses SQLite by default, and PostgreSQL
+can be enabled with `DATABASE_URL`.
 
 ## Setup
 
@@ -9,12 +10,14 @@ cd backend
 python3 -m venv .venv
 source .venv/bin/activate
 pip install -r requirements.txt
-flask --app app.py init-db
 python3 app.py
 ```
 
-The local base URL is `http://localhost:5173/`.
+The local backend URL is `http://localhost:3000/`.
 Local secrets live in `backend/.env`; use `backend/.env.example` as the template.
+Leave `DATABASE_URL` blank for the local SQLite database at
+`backend/instance/bloc_dev.sqlite`, or set it to a Postgres URL when Postgres is
+running.
 
 ## Main Routes
 
