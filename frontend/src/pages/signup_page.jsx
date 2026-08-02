@@ -82,6 +82,69 @@ function SignupPage() {
         </div>
       </section>
 
+      <section className="signup__audience signup__audience--customer" aria-labelledby="customer-flow-title">
+        <div className="signup__audience-copy">
+          <p className="signup__eyebrow">For Customers</p>
+          <h2 id="customer-flow-title">Find people and businesses by the identity they actually use.</h2>
+          <p>
+            Customers join Bloc with a personal handle, search for friends or merchants, open a living profile,
+            add an amount and message, then move through a familiar M-Pesa-style payment moment.
+          </p>
+          <div className="signup__audience-actions">
+            <Link className="signup__button signup__button--primary" to="/customer-login">
+              Start as customer
+            </Link>
+            <Link className="signup__button signup__button--secondary" to="/customer-home">
+              View pay flow
+            </Link>
+          </div>
+        </div>
+        <div className="signup__audience-panel">
+          <div className="signup__flow-card">
+            <span>01</span>
+            <strong>Search by @handle</strong>
+            <p>Discover fake demo accounts and real merchants created during the same presentation.</p>
+          </div>
+          <div className="signup__flow-card">
+            <span>02</span>
+            <strong>Add context</strong>
+            <p>Payments can carry a note, emoji, or short reason so the transfer feels human.</p>
+          </div>
+          <div className="signup__flow-card">
+            <span>03</span>
+            <strong>Pay through Bloc</strong>
+            <p>The demo walks through balance, STK push, confirmation, and receipt-style feedback.</p>
+          </div>
+        </div>
+      </section>
+
+      <section className="signup__audience signup__audience--merchant" aria-labelledby="merchant-flow-title">
+        <div className="signup__audience-copy">
+          <p className="signup__eyebrow">For Merchants</p>
+          <h2 id="merchant-flow-title">Turn a business setup into a searchable payment profile.</h2>
+          <p>
+            Merchants claim a business handle, add their store details, choose a payout destination, and become
+            searchable immediately so customers can pay the business they just watched being created.
+          </p>
+          <div className="signup__audience-actions">
+            <Link className="signup__button signup__button--primary" to="/merchant-login">
+              Start as merchant
+            </Link>
+            <Link className="signup__button signup__button--secondary" to="/profile/greenmarket">
+              View storefront
+            </Link>
+          </div>
+        </div>
+        <div className="signup__merchant-preview">
+          <img src={profiles[3].image} alt="Green Market storefront preview" />
+          <div>
+            <strong>@greenmarket</strong>
+            <span>Fresh produce, fair prices, daily baskets from local farms.</span>
+          </div>
+          <p>Business profile, catalogue, location, hours, and a payment form all live in one place.</p>
+        </div>
+      </section>
+
       <section className="signup__process" id="process">
         <h2>From first tap to payments that matter</h2>
         <div className="signup__process-grid">
