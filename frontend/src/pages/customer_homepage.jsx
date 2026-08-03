@@ -13,6 +13,21 @@ const searchableProfiles = profiles.map((profile) => ({
   profile_picture_url: profile.image,
 }))
 
+function getCustomerProfile() {
+  const account = getBlocAccount()
+  const fallback = profiles[0]
+
+  if (!account || account.type !== 'customer') return fallback
+
+  return {
+    ...fallback,
+    name: account.name || `${account.first_name || ''} ${account.last_name || ''}`.trim() || fallback.name,
+    handle: account.handle || fallback.handle,
+    bio: account.profile_bio || fallback.bio || 'New Bloc customer',
+    image: account.profile_picture_url || fallback.image || assets.profileIcon,
+  }
+}
+
 function CustomerHomepage() {
   const navigate = useNavigate()
   const [showBalance, setShowBalance] = useState(true)
@@ -22,6 +37,8 @@ function CustomerHomepage() {
   const [searchError, setSearchError] = useState('')
   const [demoStatus, setDemoStatus] = useState('')
   const account = getBlocAccount()
+  const customer = getCustomerProfile()
+  const transactions = account?.type === 'customer' ? [] : customerTransactions
 
   const suggestions = useMemo(() => {
     const cleanQuery = query.trim().toLowerCase().replace(/^@/, '')
@@ -81,7 +98,13 @@ function CustomerHomepage() {
   return (
     <main className="customer-homepage">
       <header className="customer-homepage__header">
-        <img src={assets.logo} alt="Bloc" />
+        <Link className="customer-homepage__person-link" to={`/profile/${customer.handle.replace(/^@/, '')}`}>
+          <img src={customer.image} alt="" />
+          <div>
+            <strong>{customer.name}</strong>
+            <span>{customer.handle}</span>
+          </div>
+        </Link>
         <Link className="customer-homepage__icon-button" to="/settings" aria-label="Notifications">
           <img src={assets.notificationsIcon} alt="" />
         </Link>
@@ -113,7 +136,7 @@ function CustomerHomepage() {
       <section className="customer-homepage__balance-card">
         <div>
           <p>Your Balance</p>
-          <h1>{showBalance ? 'KES 4,200.00' : 'KES ●●●●'}</h1>
+          <h1>{showBalance ? 'KES 0.00' : 'KES ●●●●'}</h1>
         </div>
         <button
           className="customer-homepage__eye"
@@ -152,7 +175,7 @@ function CustomerHomepage() {
       <section className="customer-homepage__transactions">
         <h2>Recent transactions</h2>
         <div className="customer-homepage__transaction-list">
-          {customerTransactions.map((transaction) => (
+          {transactions.length ? transactions.map((transaction) => (
             <article className="customer-homepage__transaction" key={`${transaction.handle}-${transaction.time}`}>
               <img src={transaction.image} alt="" />
               <div>
@@ -164,7 +187,12 @@ function CustomerHomepage() {
                 <span>{transaction.time}</span>
               </div>
             </article>
-          ))}
+          )) : (
+            <article className="customer-homepage__empty">
+              <strong>No transactions yet</strong>
+              <span>Your payments, top ups, and received money will appear here after you start using Bloc.</span>
+            </article>
+          )}
         </div>
       </section>
 

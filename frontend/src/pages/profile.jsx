@@ -11,7 +11,7 @@ const paymentSteps = [
   'Preparing payment request...',
   'Connecting to M-Pesa via STK push...',
   'STK push sent. Waiting for confirmation...',
-  'Demo payment complete.',
+  'Payment request confirmed.',
 ]
 
 function readSelectedProfile() {
@@ -56,8 +56,9 @@ function Profile() {
   const accountKind = getBlocAccountKind()
   const profile = useMemo(() => {
     const matchingSelected = selectedProfile?.handle?.replace(/^@/, '') === handle
-    return normalizeProfile(liveProfile || (matchingSelected ? selectedProfile : fallbackProfile), fallbackProfile)
-  }, [fallbackProfile, handle, liveProfile, selectedProfile])
+    const matchingAccount = account?.handle?.replace(/^@/, '') === handle
+    return normalizeProfile(liveProfile || (matchingSelected ? selectedProfile : null) || (matchingAccount ? account : null) || fallbackProfile, fallbackProfile)
+  }, [account, fallbackProfile, handle, liveProfile, selectedProfile])
   const isMerchant = profile.type === 'Merchant'
 
   useEffect(() => {

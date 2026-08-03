@@ -1,32 +1,49 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import BottomNav from '../components/BottomNav/BottomNav'
-import { assets, getProfileByHandle, merchantPayments } from '../data/blocData'
+import { assets, getBlocAccount, getProfileByHandle } from '../data/blocData'
 import '../styles/merchant_homepage.css'
+
+function getMerchantShop() {
+  const account = getBlocAccount()
+  const fallback = getProfileByHandle('greenmarket')
+
+  if (!account || account.type !== 'merchant') return fallback
+
+  return {
+    ...fallback,
+    name: account.name || account.business_name || fallback.name,
+    handle: account.handle || fallback.handle,
+    bio: account.profile_bio || fallback.bio,
+    image: account.profile_picture_url || fallback.image,
+    location: account.location || fallback.location,
+  }
+}
 
 function MerchantHomepage() {
   const [showNudge, setShowNudge] = useState(true)
   const [showBalance, setShowBalance] = useState(true)
-  const shop = getProfileByHandle('greenmarket')
+  const shop = getMerchantShop()
+  const shopPath = `/profile/${shop.handle.replace(/^@/, '')}`
 
   return (
     <main className="merchant-homepage">
       <header className="merchant-homepage__header">
-        <Link className="merchant-homepage__shop-link" to="/profile/greenmarket">
+        <Link className="merchant-homepage__shop-link" to={shopPath}>
           <img src={shop.image} alt="" />
           <div>
             <strong>{shop.name}</strong>
             <span>{shop.handle}</span>
           </div>
         </Link>
-        <Link className="merchant-homepage__view-shop" to="/profile/greenmarket">View your shop</Link>
+        <Link className="merchant-homepage__view-shop" to={shopPath}>View your shop</Link>
       </header>
 
       <section className="merchant-homepage__earnings-card">
         <div>
           <p>Current balance</p>
-          <h1>{showBalance ? 'KES 12,400.00' : 'KES ●●●●'}</h1>
-          <span>KES 3,200 today</span>
+          <h1>{showBalance ? 'KES 0.00' : 'KES ●●●●'}</h1>
+          <span>KES 0 today</span>
         </div>
         <button
           className="merchant-homepage__eye"
@@ -41,7 +58,7 @@ function MerchantHomepage() {
             <img src={assets.paymentIcon} alt="" />
             Request Payment
           </button>
-          <button type="button" onClick={() => navigator.clipboard?.writeText(window.location.origin + '/profile/greenmarket')}>
+          <button type="button" onClick={() => navigator.clipboard?.writeText(window.location.origin + shopPath)}>
             <img src={assets.storeIcon} alt="" />
             Share My Shop
           </button>
@@ -51,19 +68,10 @@ function MerchantHomepage() {
       <section className="merchant-homepage__activity">
         <h2>What's Coming In</h2>
         <div className="merchant-homepage__activity-list">
-          {merchantPayments.map((payment) => (
-            <article className="merchant-homepage__payment" key={`${payment.handle}-${payment.time}`}>
-              <img src={payment.image} alt="" />
-              <div>
-                <strong>{payment.handle}</strong>
-                <span>{payment.note}</span>
-              </div>
-              <div>
-                <strong>{payment.amount}</strong>
-                <span>{payment.time}</span>
-              </div>
-            </article>
-          ))}
+          <article className="merchant-homepage__empty">
+            <strong>No payments yet</strong>
+            <span>Your first Bloc payment will appear here after a customer pays {shop.handle}.</span>
+          </article>
         </div>
       </section>
 

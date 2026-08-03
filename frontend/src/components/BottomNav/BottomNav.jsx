@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { assets } from '../../data/blocData'
+import { assets, getBlocAccount } from '../../data/blocData'
 import './BottomNav.css'
 
 const customerItems = [
@@ -9,14 +9,15 @@ const customerItems = [
   { to: '/settings', label: 'Settings', icon: assets.settingsIcon },
 ]
 
-const merchantItems = [
-  { to: '/merchant-home', label: 'Home', icon: assets.homeIcon },
-  { to: '/profile/jessmusic', label: 'Pay', icon: assets.paymentIcon },
-  { to: '/profile/greenmarket', label: 'Store', icon: assets.storeIcon },
-  { to: '/settings', label: 'Settings', icon: assets.settingsIcon },
-]
-
 function BottomNav({ variant = 'customer' }) {
+  const account = getBlocAccount()
+  const merchantHandle = account?.type === 'merchant' ? account.handle?.replace(/^@/, '') : 'greenmarket'
+  const merchantItems = [
+    { to: '/merchant-home', label: 'Home', icon: assets.homeIcon },
+    { to: '/profile/jessmusic', label: 'Pay', icon: assets.paymentIcon },
+    { to: `/profile/${merchantHandle}`, label: 'Store', icon: assets.storeIcon },
+    { to: '/settings', label: 'Settings', icon: assets.settingsIcon },
+  ]
   const items = variant === 'merchant' ? merchantItems : customerItems
 
   return (

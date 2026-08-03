@@ -1,15 +1,33 @@
 import { Link, useNavigate } from 'react-router-dom'
 import BottomNav from '../components/BottomNav/BottomNav'
-import { getBlocAccountKind, getProfileByHandle } from '../data/blocData'
+import { assets, getBlocAccount, getBlocAccountKind, getProfileByHandle } from '../data/blocData'
 import '../styles/settings_page.css'
+
+function getCurrentProfile(kind) {
+  const account = getBlocAccount()
+  if (account) {
+    const fallback = kind === 'merchant' ? getProfileByHandle('greenmarket') : getProfileByHandle('jessmusic')
+    return {
+      ...fallback,
+      name: account.name || account.business_name || fallback.name,
+      handle: account.handle || fallback.handle,
+      image: account.profile_picture_url || fallback.image || assets.profileIcon,
+    }
+  }
+
+  return kind === 'merchant' ? getProfileByHandle('greenmarket') : getProfileByHandle('jessmusic')
+}
 
 function SettingsPage() {
   const navigate = useNavigate()
   const kind = getBlocAccountKind()
-  const profile = kind === 'merchant' ? getProfileByHandle('greenmarket') : getProfileByHandle('jessmusic')
+  const profile = getCurrentProfile(kind)
 
   function logOut() {
     window.localStorage.removeItem('bloc-session')
+    window.localStorage.removeItem('bloc-account')
+    window.localStorage.removeItem('bloc-account-kind')
+    window.localStorage.removeItem('bloc-selected-profile')
     navigate('/')
   }
 
