@@ -6,6 +6,12 @@ import { assets, customerTransactions, getBlocAccount, profiles } from '../data/
 import '../styles/customer_homepage.css'
 
 const feedProfiles = profiles.slice(0, 6)
+const stkSteps = [
+  '📲 M-Pesa STK push prepared for your demo phone.',
+  '🔐 Prompt sent. Enter your M-Pesa PIN on the handset.',
+  '⏳ Waiting for Safaricom confirmation...',
+  '✅ Demo STK push completed. Receipt: BLC4750.',
+]
 const searchableProfiles = profiles.map((profile) => ({
   ...profile,
   type: profile.type.toLowerCase(),
@@ -36,6 +42,7 @@ function CustomerHomepage() {
   const [isSearching, setIsSearching] = useState(false)
   const [searchError, setSearchError] = useState('')
   const [demoStatus, setDemoStatus] = useState('')
+  const [isDemoPushing, setIsDemoPushing] = useState(false)
   const account = getBlocAccount()
   const customer = getCustomerProfile()
   const transactions = account?.type === 'customer' ? [] : customerTransactions
@@ -85,13 +92,20 @@ function CustomerHomepage() {
     navigate(`/profile/${profile.handle.replace(/^@/, '')}`)
   }
 
-  function startTopUp() {
+  async function runStkDemo(finalMessage = stkSteps.at(-1)) {
+    if (isDemoPushing) return
+    setIsDemoPushing(true)
     setShowBalance(true)
-    setDemoStatus('Connecting to M-Pesa via STK push. Check your phone to complete the demo top up.')
+    for (const step of stkSteps.slice(0, -1)) {
+      setDemoStatus(step)
+      await new Promise((resolve) => setTimeout(resolve, 650))
+    }
+    setDemoStatus(finalMessage)
+    setIsDemoPushing(false)
   }
 
   function startSendMoney() {
-    setDemoStatus('Choose a recipient below. Bloc will open a demo payment flow with an M-Pesa STK push screen.')
+    runStkDemo('✅ Send Money STK push approved. Search Gremios Nakuru below to complete the staged merchant payment.')
     document.querySelector('.customer-homepage__search input')?.focus()
   }
 
@@ -147,11 +161,11 @@ function CustomerHomepage() {
           ◌
         </button>
         <div className="customer-homepage__balance-actions">
-          <button type="button" onClick={startSendMoney}>
+          <button type="button" onClick={startSendMoney} disabled={isDemoPushing}>
             <img src={assets.sendMoneyIcon} alt="" />
             Send Money
           </button>
-          <button type="button" onClick={startTopUp}>
+          <button type="button" onClick={() => runStkDemo()} disabled={isDemoPushing}>
             <img src={assets.topUpIcon} alt="" />
             Top Up
           </button>

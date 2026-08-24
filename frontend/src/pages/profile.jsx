@@ -8,10 +8,10 @@ import '../styles/profile.css'
 
 const amounts = ['50', '100', '500', '1,000', '2,500']
 const paymentSteps = [
-  'Preparing payment request...',
-  'Connecting to M-Pesa via STK push...',
-  'STK push sent. Waiting for confirmation...',
-  'Payment request confirmed.',
+  '🧾 Preparing KES payment request...',
+  '📲 M-Pesa STK push sent to your demo phone.',
+  '🔐 Enter PIN on the handset. Waiting for confirmation...',
+  '✅ Payment confirmed. Receipt BLC4750. Asante!',
 ]
 
 function readSelectedProfile() {
@@ -45,8 +45,9 @@ function normalizeProfile(profile, fallback) {
 
 function Profile() {
   const { handle } = useParams()
-  const [amount, setAmount] = useState('')
-  const [context, setContext] = useState('')
+  const isGremiosDemo = handle === 'gremiosnakuru'
+  const [amount, setAmount] = useState(isGremiosDemo ? '4750' : '')
+  const [context, setContext] = useState(isGremiosDemo ? 'Monthly pantry basket 🛒' : '')
   const [paymentStatus, setPaymentStatus] = useState('')
   const [isPaying, setIsPaying] = useState(false)
   const [liveProfile, setLiveProfile] = useState(null)
@@ -178,9 +179,9 @@ function Profile() {
           </div>
         </div>
         <section className="profile__process" aria-live="polite">
-          <span>1. Confirm amount</span>
-          <span>2. STK push</span>
-          <span>3. Receipt</span>
+          <span>1. Confirm KES {amount || '0'}</span>
+          <span>2. 📲 STK push</span>
+          <span>3. ✅ Receipt</span>
           {paymentStatus ? <strong>{paymentStatus}</strong> : null}
         </section>
         <button className="profile__pay-button" type="button" onClick={runPaymentDemo} disabled={isPaying}>

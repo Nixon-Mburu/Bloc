@@ -16,6 +16,9 @@ import maryanne from '../assets/@maryanne_105.jpeg'
 import jessMusic from '../assets/jessmusic.jpeg'
 import signupImage from '../assets/Social Media Mobile App.jpeg'
 import creatorImage from '../assets/𝗩𝗜𝗞𝗥𝗔𝗠 • UI_UX DESIGNER on Instagram_ _Moments that feel like magic ✨ Capt.jpeg'
+import gremiosOne from '../assets/gremios/gremios_1.jpeg'
+import gremiosTwo from '../assets/gremios/gremios_2.jpeg'
+import gremiosThree from '../assets/gremios/gremios_3.jpeg'
 
 export const assets = {
   logo,
@@ -56,6 +59,22 @@ export const profiles = [
     image: maryanne,
     type: 'Customer',
     verified: false,
+  },
+  {
+    name: 'Gremios Nakuru',
+    handle: '@gremiosnakuru',
+    bio: 'Retail supermarket in Nakuru with fresh groceries, household essentials, and quick Bloc checkout.',
+    image: gremiosOne,
+    type: 'Merchant',
+    verified: true,
+    location: 'Kenyatta Avenue, Nakuru CBD',
+    hours: ['Mon-Sat 7:30-21:00', 'Sunday 8:00-19:00', 'Till 487521 accepts Bloc demo payments'],
+    photos: [gremiosOne, gremiosTwo, gremiosThree],
+    menu: [
+      { item: 'Monthly pantry basket', description: 'Unga, rice, cooking oil, sugar, tea leaves, and breakfast staples', price: 'KES 4,750' },
+      { item: 'Fresh produce pack', description: 'Vegetables, fruits, herbs, and dairy picked for the day', price: 'KES 1,850' },
+      { item: 'Household essentials', description: 'Cleaning supplies, toiletries, and refill items for home', price: 'KES 2,400' },
+    ],
   },
   {
     name: 'Green Market',
@@ -166,7 +185,7 @@ export const merchantPayments = [
 
 export function getProfileByHandle(handle) {
   const normalized = handle?.startsWith('@') ? handle : `@${handle}`
-  return profiles.find((profile) => profile.handle === normalized) || profiles[3]
+  return profiles.find((profile) => profile.handle === normalized) || profiles.find((profile) => profile.handle === '@greenmarket') || profiles[0]
 }
 
 export function isSessionValid() {
